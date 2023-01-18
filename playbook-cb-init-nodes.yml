@@ -1,0 +1,22 @@
+- hosts:
+  - data-nodes
+  - index-nodes
+  tasks:
+   - name : Initialize nodes
+     ansible.builtin.shell: "/opt/couchbase/bin/couchbase-cli node-init -c 127.0.0.1 --node-init-hostname {{hostname}} \
+   --username Administrator --password passwordString \
+   --node-init-data-path /opt/data \
+   --node-init-index-path /opt/data \
+   --node-init-analytics-path /opt/data "
+
+   - name: Print Hostname from Inventory
+     debug:
+        msg: Hello {{hostname}}
+
+
+   #- name : Establish Credentials
+     #ansible.builtin.shell: "curl -X POST http://127.0.0.1:8091/settings/web \
+#-d 'password=passwordString&username=Administrator&port=SAME'"
+
+   #- name : Name the nodes
+     #ansible.builtin.shell: "curl -X POST -u Administrator:passwordString  http://127.0.0.1:8091/node/controller/rename -d hostname={{hostname}} "

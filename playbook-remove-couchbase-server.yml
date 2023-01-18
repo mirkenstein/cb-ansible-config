@@ -1,0 +1,19 @@
+- hosts:
+   - tf-cb-backup 
+   - data-nodes
+   - index-nodes  
+  tasks:
+    - yum:
+        name: couchbase-server.x86_64
+        state: absent
+      become: true
+    - ansible.builtin.systemd:
+        daemon_reexec: yes
+      become: true
+    - file:
+        path: "{{item}}"
+        state: absent
+      with_items:
+        - /opt/couchbase
+      become: true
+        
