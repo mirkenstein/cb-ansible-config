@@ -1,6 +1,8 @@
 - hosts:
   - data-nodes
   - index-nodes
+  - analytics-nodes
+  - backup-node
   tasks:
    - name : Initialize nodes
      ansible.builtin.shell: "/opt/couchbase/bin/couchbase-cli node-init -c 127.0.0.1 --node-init-hostname {{hostname}} \
